@@ -1,0 +1,98 @@
+<head>
+    <title></title>
+    <style>
+        .progress-bar-striped {
+            background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+            background-size: 1rem 1rem;
+        }
+        .progress-bar {
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            color: #fff;
+            text-align: right;
+            background-color: #febd01;
+            transition: width .2s ease;
+        }
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        div {
+            display: block;
+        }
+        .progress {
+            display: flex;
+            height: 500px;
+            overflow: hidden;
+            font-size: .75rem;
+            background-color: #947ADA;
+            border-radius: 100%;
+            width: 500px;
+            position: relative;
+        }
+
+        .progress:after {
+            content: "";
+            width: 300px; 
+            height: 300px;
+            position: absolute; 
+            left: calc(50% - 150px); 
+            top: calc(50% - 150px);
+            background: white;
+            border-radius: 50% 50% 50% 50%;
+            }
+    .progress:before{
+        content: "";
+            width: 500px; 
+            height: 400px;
+            position: absolute; 
+            left: calc(50% - 250px); 
+            top: calc(50% - 200px);
+        border-top: 90px solid transparent;
+        border-right: 150px solid white;
+        border-bottom: 90px solid transparent;
+        }
+
+        .progress-text{
+            font-family: Geneva, Arial, Helvetica, sans-serif;
+            content: "";
+            width: 0px; 
+            height: 0px;
+            position: absolute;
+            z-index: 3;
+            left: calc(50% - 100px); 
+            top: calc(50% - 185px);
+            background: white;
+            border-radius: 50% 50% 50% 50%;
+            color: #febd01;
+            font-size: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" id="progress-bar"><b><p class="progress-text" id="procent"></p></b></div>
+    </div>
+</body>
+<script>
+    let i = 0;
+    let progress = document.getElementById('progress-bar');
+    let procent = document.getElementById('procent');
+    let title = document.getElementsByTagName('title')[0];
+    let inter = setInterval(() => {
+        if(i == 100){
+            clearInterval(inter);
+            procent.style.color = '#947ADA';
+        }
+        progress.style.width = (i * 0.88) + '%';
+        title.innerHTML = i + '%';
+        procent.innerHTML = i + '%';
+        i++
+    }, 100);
+</script>
