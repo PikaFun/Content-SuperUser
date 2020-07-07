@@ -28,6 +28,6 @@ plugin for 21vek.by
 
 Спасибо за внимание!
 
-Кирилл Пешевич
-+375295913511 (telegram)
+Кирилл Пешевич,
++375295913511 (telegram),
 peshevich99@gmail.com
