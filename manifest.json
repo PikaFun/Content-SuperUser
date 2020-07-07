@@ -1,0 +1,61 @@
+{
+    "manifest_version": 2,
+
+    "name": "Content SuperUser",
+    "short_name": "CSU",
+    "description": "This plugin will help to edit 21vek.by",
+    "version": "1.0.4",
+
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html",
+        "default_title": "Content SuperUser"
+    },
+
+    "icons": {
+        "16": "logo16.png",
+        "48": "logo48.png",
+        "128": "logo128.png"
+    },
+
+    "commands":{
+        "_execute_browser_action":{
+            "suggested_key":{
+                "default": "Ctrl+Shift+S"
+            }
+        }
+    },
+
+    "omnibox":{
+        "keyword": "csu"
+    },
+
+    "content_scripts": [
+        {
+          "matches": ["https://www.21vek.by/*"],
+          "js": ["jq.js", "content.js", "alasql.js", "xlsx_core.js"],
+          "run_at": "document_end"
+        }
+    ],
+
+    "background":{
+        "scripts": ["background.js"]
+    },
+
+    "permissions": [
+        "activeTab",
+        "*://www.21vek.by/*",
+        "notifications", 
+        "unlimitedStorage", 
+        "tabs", 
+        "idle", 
+        "webNavigation", 
+        "webRequest", 
+        "storage", 
+        "contextMenus", 
+        "chrome://favicon/", 
+        "clipboardWrite", 
+        "cookies"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'" 
+}
