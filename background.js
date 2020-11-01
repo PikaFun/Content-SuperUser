@@ -9,8 +9,8 @@ chrome.omnibox.SuggestResult = {
     on: "on",
     off: "off",
     status: "status",
-    help: 'help'
-    //license: "license"
+    help: 'help',
+    license: "license"
 }
 
 chrome.omnibox.onInputEntered.addListener(function (sup){
@@ -48,26 +48,36 @@ chrome.omnibox.onInputEntered.addListener(function (sup){
             'Запуск игр: ' + chrome.omnibox.SuggestResult.fun + '\n' +
             'Вкл запуск игр: ' + chrome.omnibox.SuggestResult.fun_true + '\n' +
             'Выкл запуск игр: ' + chrome.omnibox.SuggestResult.fun_false + '\n' +
+            'Лицензия продукта: ' + chrome.omnibox.SuggestResult.license + '\n' +
             'Доступные команды: ' + chrome.omnibox.SuggestResult.help
         )
-    }/*else if(sup == 'license'){
-        let EN = ''
-        let RU = '';
-        function index(filename, text, type) {
-            let main_element = document.createElement('a');
-            main_element.setAttribute('href', type + encodeURIComponent(text));
-            main_element.setAttribute('download', filename);
-          
-            main_element.style.display = 'none';
-            document.body.appendChild(main_element);
-          
-            main_element.click();
-          
-            document.body.removeChild(main_element);
-        }
-        index("Content SuperUser License (EN).txt", EN, 'data:text/plain;charset=utf-8,');
-        index("Content SuperUser License (RU).txt", RU, 'data:text/plain;charset=utf-8,');
-    }*/
+    }else if(sup == 'license'){
+        let re;
+        let LICENSE = new XMLHttpRequest();
+        LICENSE.open('GET', `LICENSE`, true);
+        LICENSE.send();
+        LICENSE.addEventListener('readystatechange', function() {
+            if(LICENSE.response && LICENSE.readyState == 4 && LICENSE.status == 200){
+                re = LICENSE.responseText;
+                let EN = re.split("&")[1];
+                let RU = re.split("&")[0];
+                function index(filename, text, type) {
+                    let main_element = document.createElement('a');
+                    main_element.setAttribute('href', type + encodeURIComponent(text));
+                    main_element.setAttribute('download', filename);
+                
+                    main_element.style.display = 'none';
+                    document.body.appendChild(main_element);
+                
+                    main_element.click();
+                
+                    document.body.removeChild(main_element);
+                }
+                index("Content SuperUser License (EN).txt", EN, 'data:text/plain;charset=utf-8,');
+                index("Content SuperUser License (RU).txt", RU, 'data:text/plain;charset=utf-8,');
+            }
+        });
+    }
 });
 
 //message
